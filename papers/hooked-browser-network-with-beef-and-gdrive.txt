@@ -1,0 +1,30 @@
+Today's guest post is brought to you by:
+
+Denis Kolegov (@dnkolegov)
+Oleg Broslavsky(@ovbroslavsky)
+Nikita Oleksov (@neoleksov)
+
+Hello All. In this post, we present implementation of a hooked browser network based on BeEF and the Google Drive service.
+
+First, we would like to introduce ourselves. We are researchers in the Information Security and Cryptography Department of Tomsk State University located in Tomsk, Russia.
+
+Our team takes part in the BeEF project by sometimes developing experimental features. We implemented DNS and ETag covert timing channels modules and extensions, modules for attacking BIG-IP devices. Our ETag covert timing channels research took 10th place in the WhiteHat Security Top 10 Web Hacking techniques of 2014.
+
+Now, let's talk about why we really need to communicate with hooked browsers via Google Drive and how we can implement it.
+One day we read Christian "@xntrik" Frichot's post about his implementation of Hooked-Browser Meshed-Networks with WebRTC in BeEF. The main purpose of that technique is to avoid detection and tracking of post-exploitation communication of hooked browsers (zombies) with BeEF command and control server.
+
+Christian's approach is based on using of Web Real-Time Communications (WebRTC) technology to mesh all those hooked browsers, funnelling all BeEF commands through a single sacrificial beach-head. The main drawback is that BeEF server still must communicate with this beach-head browser.
+
+We propose to use an alternate approach against tracking of BeEF server and its communications with zombies.
+The main idea is to use storage covert channel communications over known and popular cloud web services, for example Google Drive. Using these services as shared resources between BeEF server and hooked browsers can meet our need. In this case, there is no direct communication between BeEF server and zombies: All of them communicate only with Google API servers.
+Conceptually, this approach is not new. There are other tools (e.g. Gcat and Twittor) that use known and trusted services as command and control servers. But, so far, no one has blogged to the BeEF blog about using Google Drive.
+
+The current implementation of this extension requires the custom version of BeEF.
+
+We are also planning to implement this extension for the main branch of BeEF without any restrictions or additional requirements.
+
+
+We recently presented our research at the Zero Nights 2015 conference. The slides are here: http://www.slideshare.net/dnkolegov/zn27112015
+
+
+[Below](https://www.youtube.com/watch?v=_RfBUEcvynM) is the video demonstrating how this feature works.
